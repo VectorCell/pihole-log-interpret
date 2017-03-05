@@ -2,4 +2,5 @@
 *.d
 __pycache__
 *.pyc
+log
 secrets.py
