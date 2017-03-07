@@ -61,12 +61,12 @@ HOSTS = get_host_replacement()
 def send_msg(msg):
 	message = msg.replace(' ', '%20')
 	print("REFUSING TO SEND MESSAGE: {}".format(message))
-	url = get_api_msg_template().format(message)
-	try:			
-		response = urlopen(url).read().decode('utf-8')
-		print(response)
-	except URLError as e:
-		print(e)
+	#url = get_api_msg_template().format(message)
+	#try:			
+	#	response = urlopen(url).read().decode('utf-8')
+	#	print(response)
+	#except URLError as e:
+	#	print(e)
 
 
 def is_mine(host):
@@ -212,7 +212,7 @@ class Printer(threading.Thread):
 			table[host]['time'] = time_difference_readable(now - host_log[host])
 			table[host]['mean'] = round(calc_mean(host_stats[host]), 1)
 			table[host]['stddev'] = round(calc_stddev(host_stats[host], table[host]['mean']), 1)
-			table[host]['percentiles'] = calc_percentiles(host_stats[host])
+			#table[host]['percentiles'] = calc_percentiles(host_stats[host])
 			if table[host]['mean'] < 0:
 				table[host]['mean'] = '-'
 			if table[host]['stddev'] < 0:
@@ -260,8 +260,8 @@ class Printer(threading.Thread):
 		print(table['mean_format'].replace('>', '<').format('μ'), end='')
 		print(TABLE_SEP, end='')
 		print(table['stddev_format'].replace('>', '<').format('σ'), end='')
-		print(TABLE_SEP, end='')
-		print(table['percentiles_format'].replace('>', '<').format('P'), end='')
+		#print(TABLE_SEP, end='')
+		#print(table['percentiles_format'].replace('>', '<').format('P'), end='')
 		print()
 		print(table['name_format'].format(apply_color('─' * (table['name_max'] - len(apply_color(''))))), end='')
 		print(TABLE_JUNC, end='')
@@ -272,8 +272,8 @@ class Printer(threading.Thread):
 		print(table['mean_format'].format('─' * table['mean_max']), end='')
 		print(TABLE_JUNC, end='')
 		print(table['stddev_format'].format('─' * table['stddev_max']), end='')
-		print(TABLE_JUNC, end='')
-		print(table['percentiles_format'].replace('>', '<').format('─' * table['percentiles_max']), end='')
+		#print(TABLE_JUNC, end='')
+		#print(table['percentiles_format'].replace('>', '<').format('─' * table['percentiles_max']), end='')
 		print()
 		for host in hosts:
 			print(table['name_format'].replace('>', '<').format(table[host]['name']), end='')
@@ -285,8 +285,8 @@ class Printer(threading.Thread):
 			print(table['mean_format'].format(str(table[host]['mean'])), end='')
 			print(TABLE_SEP, end='')
 			print(table['stddev_format'].format(str(table[host]['stddev'])), end='')
-			print(TABLE_SEP, end='')
-			print(table['percentiles_format'].replace('>', '<').format(str(table[host]['percentiles'])), end='')
+			#print(TABLE_SEP, end='')
+			#print(table['percentiles_format'].replace('>', '<').format(str(table[host]['percentiles'])), end='')
 			print()
 		host_lock.release()
 
