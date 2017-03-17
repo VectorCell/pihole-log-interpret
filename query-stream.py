@@ -63,12 +63,16 @@ def main():
 		for line in sys.stdin:
 			line = line.strip()
 			if line:
+				if 'query' in line:
+					print()
+				print(line)
 				parts = line.split()
 				if len(parts) >= 8 and parts[7] in HOSTS and parts[4].startswith('query'):
 					query = parts[5]
 					host = HOSTS[parts[7]]
+					date = ' '.join(parts[0:3])
 					if HOST_OWNER_MAP[host] != 'Brandon':
-						print(apply_color(host), query)
+						print(date, apply_color(host), query)
 	except KeyboardInterrupt:
 		print('INTERRUPTED')
 		pass
